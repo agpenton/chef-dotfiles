@@ -55,7 +55,7 @@ end
 
 path = ''
 plug.each do |p|
-  path += "#{homeuser}/.zsh/plugins/#{p}"
+  path += "#{userhome}/.zsh/plugins/#{p}"
   cookbook_file File.join(path) do
     source p
     owner "#{account}"
@@ -65,7 +65,7 @@ plug.each do |p|
   end
 end
 libs.each do |l|
-  path += "#{homeuser}/.zsh/libs/#{l}"
+  path += "#{userhome}/.zsh/libs/#{l}"
   cookbook_file File.join(path) do
     source l
     owner "#{account}"
