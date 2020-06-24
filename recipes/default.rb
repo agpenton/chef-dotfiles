@@ -24,7 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 userhome = node['dotfiles']['homeuser']
-account = default['dotfiles']['account']
+account = node['dotfiles']['account']
 plug = %w(aws.plugin.zsh django.plugin.zsh vagrant-prompt.plugin.zsh virtualenv.plugin.zsh ansible.plugin.zsh)
 libs = %w(git.zsh theme-and-appearance.zsh)
 
