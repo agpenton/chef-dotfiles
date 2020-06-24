@@ -63,7 +63,6 @@ plug.each |p|
     mode '0755'
     action :create
   end
-end
 libs.each |l|
   path += "#{homeuser}/.zsh/libs/#{l}"
   cookbook_file File.join(path) do
@@ -73,7 +72,6 @@ libs.each |l|
     mode '0755'
     action :create
   end
-end
 # %w(git.zsh theme-and-appearance.zsh).each do |l|
 #   cookbook_file "#{userhome}/.zsh/libs/"l do
 #     source l
