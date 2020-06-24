@@ -12,8 +12,8 @@ export CLICOLOR_FORCE=1
 # Don't require escaping globbing characters in zsh.
 unsetopt nomatch
 
-source ~/.zsh/git.zsh
-source ~/.zsh/theme-and-appearance.zsh
+source ~/.zsh/libs/git.zsh
+source ~/.zsh/libs/theme-and-appearance.zsh
 
 # Nicer prompt.
 # export PS1=$'\n'"%F{green} %*%F %3~ %F{white}$ "
@@ -27,7 +27,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%}]"
 plugins=(<%= @plugins %>)
 
 # Enable extra plugins
-ZDOTDIR="${ZDOTDIR:-$HOME/.zsh}"
+ZDOTDIR="${ZDOTDIR:-$HOME/.zsh/plugins}"
 
 if [[ -d "$ZDOTDIR" ]]; then
   for file in "$ZDOTDIR"/*.zsh; do

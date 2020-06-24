@@ -96,4 +96,4 @@ template "#{userhome}/.zshrc" do
   )
 end
 
-execute 'source ~/.zshrc'
+# execute 'source ~/.zshrc'
