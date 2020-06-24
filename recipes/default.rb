@@ -23,3 +23,62 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+userhome = node['dotfiles']['homeuser']
+account = default['dotfiles']['account']
+
+directory "#{userhome}/.zsh" do
+  owner "#{account}"
+  group 'staff'
+  action :create
+end
+directory "#{userhome}/.zsh/plugins" do
+  owner "#{account}"
+  group 'staff'
+  action :create
+end
+directory "#{userhome}/.zsh/libs" do
+  owner "#{account}"
+  group 'staff'
+  action :create
+end
+
+cookbook_file "#{userhome}/.aliases" do
+  source 'aliases'
+  owner "#{account}"
+  group 'staff'
+  mode '0755'
+  action :create
+end
+
+%w(aws.plugin.zsh django.plugin.zsh vagrant-prompt.plugin.zsh virtualenv.plugin.zsh ansible.plugin.zsh).each do |f|
+  cookbook_file "#{userhome}/.zsh/plugins/"f do
+    source f
+    owner "#{account}"
+    group 'staff'
+    mode '0755'
+    action :create
+  end
+end
+%w(git.zsh theme-and-appearance.zsh).each do |l|
+  cookbook_file "#{userhome}/.zsh/libs/"l do
+    source l
+    owner "#{account}"
+    group 'staff'
+    mode '0755'
+    action :create
+  end
+end
+
+
+template "#{userhome}/.zshrc" do
+  source 'zshrc.erb'
+  mode '0440'
+  owner "#{account}"
+  group 'staff'
+  variables(
+    plugins: node['dotfiles']['plugins'],
+    homeuser: node['dotfiles']['homeuser']
+  )
+end
+
+execute 'source ~/.zshrc'
