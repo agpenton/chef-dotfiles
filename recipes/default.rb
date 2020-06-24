@@ -25,6 +25,9 @@
 # THE SOFTWARE.
 userhome = node['dotfiles']['homeuser']
 account = default['dotfiles']['account']
+plug = %w(aws.plugin.zsh django.plugin.zsh vagrant-prompt.plugin.zsh virtualenv.plugin.zsh ansible.plugin.zsh)
+libs = %w(git.zsh theme-and-appearance.zsh)
+
 
 directory "#{userhome}/.zsh" do
   owner "#{account}"
@@ -50,17 +53,20 @@ cookbook_file "#{userhome}/.aliases" do
   action :create
 end
 
-%w(aws.plugin.zsh django.plugin.zsh vagrant-prompt.plugin.zsh virtualenv.plugin.zsh ansible.plugin.zsh).each do |f|
-  cookbook_file "#{userhome}/.zsh/plugins/"f do
-    source f
+path = ''
+plug.each |p|
+  path += "#{homeuser}/.zsh/plugins/#{p}"
+  cookbook_file File.join(path) do
+    source p
     owner "#{account}"
     group 'staff'
     mode '0755'
     action :create
   end
 end
-%w(git.zsh theme-and-appearance.zsh).each do |l|
-  cookbook_file "#{userhome}/.zsh/libs/"l do
+libs.each |l|
+  path += "#{homeuser}/.zsh/libs/#{l}"
+  cookbook_file File.join(path) do
     source l
     owner "#{account}"
     group 'staff'
@@ -68,6 +74,15 @@ end
     action :create
   end
 end
+# %w(git.zsh theme-and-appearance.zsh).each do |l|
+#   cookbook_file "#{userhome}/.zsh/libs/"l do
+#     source l
+#     owner "#{account}"
+#     group 'staff'
+#     mode '0755'
+#     action :create
+#   end
+# end
 
 
 template "#{userhome}/.zshrc" do
